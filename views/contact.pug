@@ -1,0 +1,35 @@
+extends layout
+
+block content
+  h1= title
+  div 
+
+    p 
+    | First Name: 
+    = contact.name
+    p 
+    | Last Name: 
+    = contact.lname
+    p 
+    | Email Address: 
+    = contact.email
+    p 
+    | Notes: 
+    = contact.notes
+    p 
+    | Timestamp from Jan 1 1970: 
+    = contact.time
+    p 
+    | Contact UUID: 
+    = contact.id 
+    .contact-actions 
+      a(href="/contacts") View All Contacts
+      br
+      br
+      br
+      a(href=`/contacts/${contact.id}/delete`) Delete Contact
+      br 
+      br
+      br
+      
+      a(href=`/contacts/${contact.id}/edit`) Edit Contact

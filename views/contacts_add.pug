@@ -1,0 +1,40 @@
+extends layout
+
+block content
+  h1= title
+  p Use the form below to add a Contact.
+  hr
+  if msg 
+    p(class="error-msg") = msg
+
+  div.index-form
+    h2 Add a Contact
+
+    form(method='POST', action='/contacts/add')
+    
+      label First Name
+      | 
+      input(type='text' name='firstName' required)
+      br
+      label Last Name
+      | 
+      input(type='text' name='lastName' required)
+      br
+      label Email
+      | 
+      input(type='text' name='email')
+      br
+      label Notes
+      | 
+      input(type='textarea' name='notes')
+      br
+    
+      label Click to create contact
+      | 
+      button.btn-add(type='submit')
+        i.fa-solid.fa-plus(aria-hidden='true') 
+    br
+    br
+    a(href='/contacts') Go Back
+      
+

@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  h1= title
+  h2 Welcome to #{title}
+  a(href='/') 
+    i.fa-solid.fa-home(aria-hidden='true') 
+  | 
+  a(href='/contacts/add') Add a Contact
+  br
+  br
+  hr
+  br
+  if contacts.length > 0
+    #contacts-wrapper 
+      ul.contacts-list 
+        each val in contacts
+          li(data-contactid=val.id)= val.name
+            | 
+            a(href=`/contacts/${val.id}`)= val.notess
+              i.fa-solid.fa-address-card(aria-hidden='true')

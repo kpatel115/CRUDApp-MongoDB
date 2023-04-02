@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  h1= title
+  p Use the form below to edit this contact.
+  hr
+  if msg 
+    p(class='error-msg')= msg
+  form(method='POST' action=`/contacts/${contact.id}/edit`)
+    label First Name
+    input(type="text", name="firstName", value=contact.name required)
+    br
+    label Last Name
+    input(type='text' name='lastName' value=contact.lname required)
+    br
+    label Email
+    input(type='text' name='email' value=contact.email)
+    br
+    label Notes
+    input(type='textarea' name='notes' value=contact.notes)
+    br
+
+    button.btn-edit(type='submit') Confirm Edit
+    | 
+    a(href=`/contacts/${contact.id}`) Cancel
+ 
+

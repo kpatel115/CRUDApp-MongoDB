@@ -1,0 +1,72 @@
+*{
+  color: whitesmoke;
+  background-color:  #A44A3F;
+  font-family: 'Cormorant Garamond', serif;
+}
+body {
+  padding: 50px;
+  font-size: 1rem;
+}
+p{
+  font-size: 1.2rem;
+}
+
+a{
+  background-color:#A44A3F ;
+  color: rgb(246, 206, 106);
+  padding:10px;
+  border: 1px solid antiquewhite;
+  border-radius: 8px;
+  transition: all .5s ease-in-out;
+}
+a:hover{
+  background-color:rgb(246, 206, 106) ;
+  color:#A44A3F ;
+  transition: all .5s ease-out;
+}
+ul.contacts-list{
+  font-size: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.error-msg{
+  color: red;
+}
+#contacts-wrapper{
+  margin: 0px 1rem;
+  padding:1rem;
+  height: auto;
+  border: 1px solid antiquewhite;
+  border-radius: 5px;
+}
+.contact-actions{
+  padding: 1rem;
+  margin: 5px 5px;
+  display: flex;
+  justify-content: space-between;
+  
+}
+.index-form{
+  margin: 5px 5px;
+  font-size: 1rem;
+}
+.index-form label{
+  font-size: 1.3rem; 
+}
+form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+}
+form input{
+  margin: 10px 10px;
+  border: 1px solid antiquewhite;
+  color: blanchedalmond;
+  height: 1.5rem;
+}
+.addForm-content{
+  margin: 2rem 0rem;
+}
