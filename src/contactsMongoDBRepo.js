@@ -2,7 +2,7 @@ const { MongoClient, ObjectId } = require('mongodb');
 const Contact = require('./Contact'); //Todo
 
 //const url = 'mongodb://localhost:27017';
-const url = process.env.MONGODB_URL;
+const url = 'mongodb+srv://kpatel114:kpatel115@cluster542.ibmkweb.mongodb.net/?retryWrites=true&w=majority';
 const client = new MongoClient(url);
 
 async function run() {
