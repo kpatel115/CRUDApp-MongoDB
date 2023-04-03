@@ -12,19 +12,19 @@ var contactsRouter = require('./routes/contacts')
 
 var app = express();
 // MongoDB Connect
-var uri = 'mongodb+srv://kpatel114:kpatel115@cluster542.ibmkweb.mongodb.net/?retryWrites=true&w=majority'
+// var uri = 'mongodb+srv://kpatel114:kpatel115@cluster542.ibmkweb.mongodb.net/?retryWrites=true&w=majority'
 
-async function connect(){
-  try {
-    await mongoose.connect(uri);
-    console.log('connected to MongoDB');
-  } 
-  catch {
-    console.error(error);
-  }
-}
+// async function connect(){
+//   try {
+//     await mongoose.connect(uri);
+//     console.log('connected to MongoDB');
+//   } 
+//   catch {
+//     console.error(error);
+//   }
+// }
 
-connect()
+// connect()
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

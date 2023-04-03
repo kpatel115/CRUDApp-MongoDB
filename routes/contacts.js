@@ -1,8 +1,13 @@
 var express = require('express');
 var router = express.Router();
+const contactController = require('../controllers/contactController');
+const { body } = require('express-validator');
 //const { randomUUID } = require("node:crypto");
 const contactsRepo = require('../src/contactsFileRepository');
 // const contactsRepo = require('../src/contactsFileRepository.js');
+const mongoRepo = require('../src/contactsMongoDBRepo');
+
+
 
 let data = [
   {name: "karan", id: "ddad031e-e030-419a-9518-2f16534edeaf"},
@@ -12,7 +17,7 @@ let data = [
 
 /* GET Contacts Database. */
 router.get('/', function(req, res, next) {
-  const data = contactsRepo.findAll()
+  const data = mongoRepo.findAll()
   res.render('contacts', { title: 'Express Contacts', contacts: data});
 });
 
@@ -28,7 +33,7 @@ router.post('/add', function(req, res, next) {
     res.render('contacts_add', { title: "Add a Contact", msg: "Please fill out the form"});
   } else {
     // add contact to database
-    contactsRepo.create({name: req.body.firstName.trim(), lname: req.body.lastName.trim(), email:req.body.email.trim(), notes: req.body.notes.trim()})
+    mongoRepo.create({name: req.body.firstName.trim(), lname: req.body.lastName.trim(), email:req.body.email.trim(), notes: req.body.notes.trim()})
     res.redirect('/contacts');
     res.send('contact created');
   }
@@ -37,7 +42,7 @@ router.post('/add', function(req, res, next) {
 
 /* GET Single Contact */ 
 router.get('/:uuid', function(req, res, next) {
-  const contact = contactsRepo.findById(req.params.uuid);
+  const contact = mongoRepo.findById(req.params.uuid);
   if (contact) {
     res.render('contact', { title: 'Your Contact', contact: contact });
   } else {
@@ -48,14 +53,14 @@ router.get('/:uuid', function(req, res, next) {
 
 /* GET Delete Contact */
 router.get('/:uuid/delete', function(req, res, next) {
-  const contact = contactsRepo.findById(req.params.uuid);
+  const contact = mongoRepo.findById(req.params.uuid);
   res.render('contacts_delete', { title: 'Delete An Express Contact', contact: contact });
 });
 
 /* POST Delete Contact */
 router.post('/:uuid/delete', function(req, res, next) {
   //delete from repo
-  contactsRepo.deleteById(req.params.uuid);
+  mongoRepo.deleteById(req.params.uuid);
   res.redirect('/contacts')
 });
 
