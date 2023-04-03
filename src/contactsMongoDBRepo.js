@@ -19,8 +19,8 @@ const repo = {
     let contacts = [];
     const contactCol = client.db('contactMongoDB').collection('expresscontacts');
     const cursor = contactCol.find({});
-    await cursor.forEach(doc => {
-      const aContact = new Contact(doc._id.toString(), doc.name, doc.lname, doc.email, doc.notes, doc.time.toString());
+    await cursor.forEach(contact => {
+      const aContact = new Contact(contact._id.toString(), contact.name, contact.lname, contact.email, contact.notes, contact.time);
       contacts.push(aContact);
     });
     return contacts;
@@ -35,8 +35,8 @@ const repo = {
       'notes': new ObjectId(contact.notes),
       'time': new ObjectId(contact.time)
     };
-    const doc = await contactCol.findOne(filter);
-    return new Contact(contact.id, contact.name, contact.lname, contact.email, contact.notes, contact.time.toString());
+    const contact = await contactCol.findOne(filter);
+    return new Contact(contact.id, contact.name, contact.lname, contact.email, contact.notes, contact.time);
   },
   create: async (contact) => {
     const doc = {name: contact.name, lname: contact.lname, email: contact.email, notes: contact.notes, time: contact.time};
