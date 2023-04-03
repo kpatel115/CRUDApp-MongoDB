@@ -21,7 +21,7 @@ exports.contacts_create_post = async function(req, res, next) {
   if (!result.isEmpty()) {
     res.render('contacts_add', { title: 'Add a Contact', msg: result.array() });
   } else {
-    const newContact = new Contact('', req.body.todoText);
+    const newContact = new Contact('', req.body.contactName);
     await contactsRepo.create(newContact);
     res.redirect('/contacts');
   }

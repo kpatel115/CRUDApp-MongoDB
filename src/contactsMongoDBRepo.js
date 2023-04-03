@@ -17,30 +17,35 @@ run()
 const repo = {
   findAll: async () => {
     let contacts = [];
-    const contactCol = client.db('expresscontactapp').collection('contacts');
+    const contactCol = client.db('contactMongoDB').collection('expresscontacts');
     const cursor = contactCol.find({});
     await cursor.forEach(doc => {
-      const aContact = new Contact(doc._id.toString(), doc.text);
+      const aContact = new Contact(doc._id.toString(), doc.name, doc.lname, doc.email, doc.notes, doc.time.toString());
       contacts.push(aContact);
     });
     return contacts;
   },
   findById: async (uuid) => {
-    const contactCol = client.db('expresscontactapp').collection('contacts');
+    const contactCol = client.db('contactMongoDB').collection('expresscontacts');
     const filter = {
-      '_id': new ObjectId(uuid)
+      '_id': new ObjectId(uuid),
+      'name': new ObjectId(contact.name),
+      'lname': new ObjectId(contact.lname),
+      'email': new ObjectId(contact.email),
+      'notes': new ObjectId(contact.notes),
+      'time': new ObjectId(contact.time)
     };
     const doc = await contactCol.findOne(filter);
-    return new Contact(doc._id.toString(), doc.text);
+    return new Contact(contact.id, contact.name, contact.lname, contact.email, contact.notes, contact.time.toString());
   },
   create: async (contact) => {
-    const doc = {text: todo.text};
-    const contactCol = client.db('expresscontactapp').collection('contacts');
+    const doc = {name: contact.name, lname: contact.lname, email: contact.email, notes: contact.notes, time: contact.time};
+    const contactCol = client.db('contactMongoDB').collection('expresscontacts');
     const result = await contactCol.insertOne(doc);
     console.log(`A document was inserted with the _id: ${result.insertedId}`);
   },
   deleteById: async (uuid) => {
-    const contactCol = client.db('expresscontactapp').collection('contacts');
+    const contactCol = client.db('contactMongoDB').collection('expresscontacts');
     const filter = {
       '_id': new ObjectId(uuid)
     };
@@ -52,17 +57,23 @@ const repo = {
     }
   },
   update: async (contact) => { 
-    const contactCol = client.db('expresscontactapp').collection('contacts');
+    const contactCol = client.db('contactMongoDB').collection('expresscontacts');
     const filter = {
       '_id': new ObjectId(contact.id)
     };
     const updateDoc = {
       $set: {
-        name: contact.name,
+      '_id': new ObjectId(contact.id),
+      'name': new ObjectId(contact.name),
+      'lname': new ObjectId(contact.lname),
+      'email': new ObjectId(contact.email),
+      'notes': new ObjectId(contact.notes),
+      'time': new ObjectId(contact.time)
+        /*name: contact.name,
         lname: contact.lname,
         email: contact.email,
         notes: contact.notes,
-        time: Date.now()
+        time: Date.now() */
       }
     };
     const result = await contactCol.updateOne(filter, updateDoc);
