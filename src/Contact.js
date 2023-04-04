@@ -6,7 +6,6 @@ class Contact {
     this.email = email;
     this.notes = notes;
     this.time = time;
-    
   }
 }
 

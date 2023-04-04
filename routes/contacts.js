@@ -26,7 +26,7 @@ router.post('/add', function(req, res, next) {
     res.render('contacts_add', { title: "Add a Contact", msg: "Please fill out the form"});
   } else {
     // add contact to database
-    mongoRepo.create({name: req.body.firstName.trim(), lname: req.body.lastName.trim(), email:req.body.email.trim(), notes: req.body.notes.trim()})
+    mongoRepo.create({name: req.body.firstName, lname: req.body.lastName, email:req.body.email, notes: req.body.notes, time: req.body.time})
     res.redirect('/contacts');
     res.send('contact created');
   }
