@@ -1,9 +1,11 @@
 const { MongoClient, ObjectId } = require('mongodb');
-const Contact = require('./Contact'); //Todo
-
+const Contact = require('./Contact'); 
 //const url = 'mongodb://localhost:27017';
 const url = 'mongodb+srv://kpatel114:kpatel115@cluster542.ibmkweb.mongodb.net/?retryWrites=true&w=majority';
 const client = new MongoClient(url);
+
+var date = new Date(); 
+var newdate = date.toGMTString();
 
 async function run() {
   await client.connect();
@@ -29,14 +31,9 @@ const repo = {
     const contactCol = client.db('contactMongoDB').collection('expresscontacts');
     const filter = {
       '_id': new ObjectId(uuid),
-      'name': new ObjectId(contact.name),
-      'lname': new ObjectId(contact.lname),
-      'email': new ObjectId(contact.email),
-      'notes': new ObjectId(contact.notes),
-      'time': new ObjectId(contact.time)
     };
     const contact = await contactCol.findOne(filter);
-    return new Contact(contact.id, contact.name, contact.lname, contact.email, contact.notes, contact.time);
+    return new Contact(uuid, contact.name, contact.lname, contact.email, contact.notes, contact.time);
   },
   create: async (contact) => {
     const doc = {name: contact.name, lname: contact.lname, email: contact.email, notes: contact.notes, time: contact.time};
@@ -63,17 +60,11 @@ const repo = {
     };
     const updateDoc = {
       $set: {
-      '_id': new ObjectId(contact.id),
-      'name': new ObjectId(contact.name),
-      'lname': new ObjectId(contact.lname),
-      'email': new ObjectId(contact.email),
-      'notes': new ObjectId(contact.notes),
-      'time': new ObjectId(contact.time)
-        /*name: contact.name,
-        lname: contact.lname,
-        email: contact.email,
-        notes: contact.notes,
-        time: Date.now() */
+      name: contact.name,
+      lname: contact.lname,
+      email: contact.email,
+      notes: contact.notes,
+      time: newdate
       }
     };
     const result = await contactCol.updateOne(filter, updateDoc);

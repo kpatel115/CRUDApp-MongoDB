@@ -22,7 +22,7 @@ exports.contacts_create_post = async function(req, res, next) {
   if (!result.isEmpty()) {
     res.render('contacts_add', { title: 'Add a Contact', msg: result.array() });
   } else {
-    const newContact = new Contact('', req.body.name, req.body.lname, req.body.email, req.body.notes, '');
+    const newContact = new Contact(req.params.uuid, req.body.name, req.body.lname, req.body.email, req.body.notes, req.params.time);
     await contactsRepo.create(newContact);
     res.redirect('/contacts');
   }
@@ -56,8 +56,8 @@ exports.contacts_edit_get = async function(req, res, next) {
   res.render('contacts_edit', { title: 'Edit Contact', contact: contact });
 };
 
-/* POST edit todo. */
-exports.todos_edit_post = async function(req, res, next) {
+/* POST edit contact. */
+exports.contacts_edit_post = async function(req, res, next) {
   //console.log(req.body);
   if (req.body.firstName.trim() === '') {
     const contact = await contactsRepo.findById(req.params.uuid);

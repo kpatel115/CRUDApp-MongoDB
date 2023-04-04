@@ -9,18 +9,18 @@ const mongoRepo = require('../src/contactsMongoDBRepo');
 
 
 /* GET Contacts Database. */
-router.get('/', function(req, res, next) {
+router.get('/', contactController.contacts_list, function(req, res, next) {
   const data = mongoRepo.findAll()
   res.render('contacts', { title: 'Express Contacts', contacts: data});
 });
 
 /* GET Create Contact Form */
-router.get('/add', function(req, res, next) {
+router.get('/add', contactController.contacts_create_get, function(req, res, next) {
   res.render('contacts_add', { title: 'Add An Express Contact' });
 });
 
 /* POST Create Contact  */
-router.post('/add', function(req, res, next) {
+router.post('/add', contactController.contacts_create_post, function(req, res, next) {
   // console.log(req.body);
   if(req.body.firstName.trim() === "") {
     res.render('contacts_add', { title: "Add a Contact", msg: "Please fill out the form"});
@@ -34,7 +34,7 @@ router.post('/add', function(req, res, next) {
 });
 
 /* GET Single Contact */ 
-router.get('/:uuid', function(req, res, next) {
+router.get('/:uuid', contactController.contacts_detail,  function(req, res, next) {
   const contact = mongoRepo.findById(req.params.uuid);
   if (contact) {
     res.render('contact', { title: 'Your Contact', contact: contact });
@@ -45,26 +45,26 @@ router.get('/:uuid', function(req, res, next) {
 });
 
 /* GET Delete Contact */
-router.get('/:uuid/delete', function(req, res, next) {
+router.get('/:uuid/delete', contactController.contacts_delete_get, function(req, res, next) {
   const contact = mongoRepo.findById(req.params.uuid);
   res.render('contacts_delete', { title: 'Delete An Express Contact', contact: contact });
 });
 
 /* POST Delete Contact */
-router.post('/:uuid/delete', function(req, res, next) {
+router.post('/:uuid/delete', contactController.contacts_delete_post, function(req, res, next) {
   //delete from repo
   mongoRepo.deleteById(req.params.uuid);
   res.redirect('/contacts')
 });
 
 /* GET Edit Contact */
-router.get('/:uuid/edit', function(req, res, next) {
+router.get('/:uuid/edit', contactController.contacts_edit_get, function(req, res, next) {
   const contact = contactsRepo.findById(req.params.uuid);
   res.render('contacts_edit', { title: 'Edit An Express Contact', contact: contact });
 });
 
 /* POST Edit Contact  */
-router.post('/:uuid/edit', function(req, res, next) {
+router.post('/:uuid/edit', contactController.contacts_edit_post, function(req, res, next) {
   if (req.body.firstName.trim() === "") {
     const contact = contactsRepo.findById(req.params.uuid);
     res.render('contacts_edit', { title: "Edit a Contact", msg: 'Please fill out the form'});
