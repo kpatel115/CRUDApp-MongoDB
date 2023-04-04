@@ -8,10 +8,10 @@ block content
     p(class='error-msg')= msg
   form(method='POST' action=`/contacts/${contact.id}/edit`)
     label First Name
-    input(type="text", name="firstName", value=contact.name required)
+    input(type="text", name="name", value=contact.name required)
     br
     label Last Name
-    input(type='text' name='lastName' value=contact.lname required)
+    input(type='text' name='lname' value=contact.lname required)
     br
     label Email
     input(type='text' name='email' value=contact.email)

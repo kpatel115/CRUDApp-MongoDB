@@ -59,7 +59,7 @@ exports.contacts_edit_get = async function(req, res, next) {
 /* POST edit contact. */
 exports.contacts_edit_post = async function(req, res, next) {
   //console.log(req.body);
-  if (req.body.firstName.trim() === '') {
+  if (req.body.name.trim() === '') {
     const contact = await contactsRepo.findById(req.params.uuid);
     res.render('contacts_edit', 
       { title: 'Edit Contact', msg: 'Contact field can not be empty!', contact: contact }
