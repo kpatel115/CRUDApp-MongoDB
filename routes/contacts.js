@@ -22,11 +22,11 @@ router.get('/add', contactController.contacts_create_get, function(req, res, nex
 /* POST Create Contact  */
 router.post('/add', contactController.contacts_create_post, function(req, res, next) {
   // console.log(req.body);
-  if(req.body.firstName.trim() === "") {
+  if(req.body.name.trim() === "") {
     res.render('contacts_add', { title: "Add a Contact", msg: "Please fill out the form"});
   } else {
     // add contact to database
-    mongoRepo.create({name: req.body.firstName, lname: req.body.lastName, email:req.body.email, notes: req.body.notes, time: req.body.time})
+    mongoRepo.create({name: req.body.name, lname: req.body.lname, email:req.body.email, notes: req.body.notes, time: req.params.time})
     res.redirect('/contacts');
     res.send('contact created');
   }
@@ -65,12 +65,12 @@ router.get('/:uuid/edit', contactController.contacts_edit_get, function(req, res
 
 /* POST Edit Contact  */
 router.post('/:uuid/edit', contactController.contacts_edit_post, function(req, res, next) {
-  if (req.body.firstName.trim() === "") {
+  if (req.body.name.trim() === "") {
     const contact = contactsRepo.findById(req.params.uuid);
     res.render('contacts_edit', { title: "Edit a Contact", msg: 'Please fill out the form'});
   } else {
     // update Database
-    const updatedContact = {id: req.params.uuid, name: req.body.firstName.trim(), lname: req.body.lastName.trim(), email: req.body.email.trim(), notes: req.body.notes.trim() };
+    const updatedContact = {id: req.params.uuid, name: req.body.name.trim(), lname: req.body.lname.trim(), email: req.body.email.trim(), notes: req.body.notes.trim(), time: req.params.time.trim() };
     contactsRepo.update(updatedContact);
     res.redirect(`/contacts/${req.params.uuid}`);
   }
